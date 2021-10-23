@@ -4,22 +4,16 @@ from django.core.validators import validate_email
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='',
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'username'}))
-    password = forms.CharField(label='',
-                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'password'}))
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label='',
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'username'}))
-    email = forms.CharField(label='',
-                            widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Example@mail.com'}),
-                            validators=[validate_email])
-    password = forms.CharField(label='',
-                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'password'}))
-    password_repeat = forms.CharField(label='', widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': 'repeat password'}))
+    first_name = forms.CharField(label='first-name')
+    last_name = forms.CharField(label='last-name')
+    username = forms.EmailField(label='email', validators=[validate_email])
+    password = forms.CharField(label='pass1', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password_repeat = forms.CharField(label='pass2', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean(self):
         cleaned_data = super().clean()
