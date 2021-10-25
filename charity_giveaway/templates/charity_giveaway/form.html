@@ -2,29 +2,8 @@
 {% load static %}
 {% block content %}
 
-    <header class="header--form-page">
-      <nav class="container container--70">
-        <ul class="nav--actions">
-          <li class="logged-user">
-            Witaj Agata
-            <ul class="dropdown">
-              <li><a href="#">Profil</a></li>
-              <li><a href="#">Ustawienia</a></li>
-              <li><a href="#">Wyloguj</a></li>
-            </ul>
-          </li>
-        </ul>
-
-        <ul>
-          <li><a href="{% url "landing-page" %}" class="btn btn--without-border active">Start</a></li>
-          <li><a href="/#steps" class="btn btn--without-border">O co chodzi?</a></li>
-          <li><a href="/#about-us" class="btn btn--without-border">O nas</a></li>
-          <li><a href="/#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-          <li><a href="" class="btn btn--without-border">Przekaż dary</a></li>
-          <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
-      </nav>
-
+    {% if user.is_authenticated %}
+<header class="header--form-page">
       <div class="slogan container container--90">
         <div class="slogan--item">
           <h1>
@@ -52,6 +31,7 @@
         </div>
       </div>
     </header>
+
 
     <section class="form--steps">
       <div class="form--steps-instructions">
@@ -81,55 +61,21 @@
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
 
-            <div class="form-group form-group--checkbox">
+              {% for category in categories.all %}
+              <div class="form-group form-group--checkbox">
               <label>
                 <input
                   type="checkbox"
-                  name="categories"
-                  value="clothes-to-use"
+                  name="category"
+                  value="{{ category.name }}"
                 />
                 <span class="checkbox"></span>
-                <span class="description"
-                  >ubrania, które nadają się do ponownego użycia</span
+                  <span class="description"
+                  >{{ category.name }}</span
                 >
               </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  name="categories"
-                  value="clothes-useless"
-                />
-                <span class="checkbox"></span>
-                <span class="description">ubrania, do wyrzucenia</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="toys" />
-                <span class="checkbox"></span>
-                <span class="description">zabawki</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="books" />
-                <span class="checkbox"></span>
-                <span class="description">książki</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="other" />
-                <span class="checkbox"></span>
-                <span class="description">inne</span>
-              </label>
-            </div>
+              </div>
+              {% endfor %}
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
@@ -152,8 +98,6 @@
               <button type="button" class="btn next-step">Dalej</button>
             </div>
           </div>
-
-
 
           <!-- STEP 4 -->
           <div data-step="3">
@@ -299,5 +243,9 @@
         </form>
       </div>
     </section>
+
+    {% else %}
+    <meta http-equiv="refresh" content="0; url={% url 'login' %}"/>
+    {% endif %}
 
 {% endblock %}
