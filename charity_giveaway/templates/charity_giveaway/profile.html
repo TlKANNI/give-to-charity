@@ -1,0 +1,28 @@
+{% extends 'charity_giveaway/base.html' %}
+{% load static %}
+{% block content %}
+
+
+  <div class="steps--container" style="max-width: 800px; margin-top: 200px; margin-left: 500px; margin-bottom: 100px">
+      <h2 class="card-title">{{ user.first_name }} {{ user.last_name }}<br>
+          <br> {{ user.email }}</h2>
+  </div>
+
+  {% for donations in donation %}
+  <div class="steps--container" style="max-width: 800px; margin-top: 50px; margin-left: 500px; margin-bottom: 50px">
+      <div> <h1> Oddanych worków: {{ donations.quantity }} &emsp; | &emsp; {{ donations.institution }} </h1>
+        <h3>Zawartość:</h3>
+
+      <div class="col"><div class="text">
+          {% for category in donations.categories.all %}
+          {{ category }}&nbsp;
+          {% endfor %}
+          </div></div>
+
+          <h3>Data odbioru: {{ donations.pick_up_date }} &nbsp; {{ donations.pick_up_time }}</h3>
+      </div>
+  </div>
+  {% endfor %}
+
+
+{% endblock %}

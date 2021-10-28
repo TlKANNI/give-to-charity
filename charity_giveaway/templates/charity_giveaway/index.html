@@ -22,7 +22,9 @@
         </div>
 
         <div class="stats--item">
-          <em>{{ institution }}</em>
+            {% for ints in institution %}
+          <em>{{ ints }}</em>
+            {% endfor %}
           <h3>Wspartych organizacji</h3>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas quam.</p>
         </div>
